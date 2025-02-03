@@ -42,7 +42,7 @@ pub fn main() !void {
     const mac = try net.MacAddress.parse(res.args.mac.?);
     const packet = net.MagicPacket.init(mac.addr);
 
-    const port = res.args.port or net.Port.discard;
+    const port = res.args.port orelse net.Port.discard;
     const ip = try std.net.Address.parseIp4(res.args.ip.?, @intFromEnum(port));
 
     try packet.broadcast(socket, ip);
